@@ -1,3 +1,4 @@
+currentBuild.displayName="node-app-#"+currentBuild.number
 pipeline {
     agent any
     environment{
