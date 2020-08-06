@@ -18,17 +18,17 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to k8s'){
-          steps{
-              sh "chmod +x changeTag.sh"
-               sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(['Centos-machine']) {
-                  sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml mkarnam 192.168.228.143:/home/mkarnam/"
-                   script{
-                       try{
-                         sh "ssh mkarnam@192.168.228.143 kubectl apply -f ."
-                          }catch(error){
-                            sh "ssh mkarnam@192.168.228.143 kubectl create -f ."
+         stage('Deploy to k8s'){
+	       steps{
+		      sh "chmod +x changeTag.sh"
+			  sh "./changeTag.sh ${DOCKER_TAG}"
+			  sshagent(['kops-machine']){
+			  sh "scp -o StrictHostKeyChecking=no service.yml node-app-pod.yml cloud_user@mss2k8master1.eastus.cloudapp.azure.com:/home/cloud_user"
+			  script{
+			   try{
+			       sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl appy -f ."
+			     catch (error){
+		                sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl create -f ."
                         }
                     }
                 }
