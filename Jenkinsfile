@@ -26,7 +26,7 @@ pipeline {
 			  sh "sudo scp -o StrictHostKeyChecking=no service.yml node-app-pod.yml cloud_user@mss2k8master1.eastus.cloudapp.azure.com:/home/cloud_user"
 			  script{
 			   try{
-			       sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl appy -f ."
+			       sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl apply -f ."
 			   }catch (error){
 		                sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl create -f ."
                         }
