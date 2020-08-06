@@ -27,7 +27,7 @@ pipeline {
 			  script{
 			   try{
 			       sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl appy -f ."
-			     catch (error){
+			   }catch (error){
 		                sh "ssh cloud_user@mss2k8master1.eastus.cloudapp.azure.com kubectl create -f ."
                         }
                     }
