@@ -7,14 +7,14 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t maniengg/nodeapp:${DOCKER_TAG} "
+                sh "sudo docker build . -t maniengg/nodeapp:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId:'docker-hub1',variable:'dockerHubPwd')]) {
-                    sh "docker login -u maniengg -p ${dockerHubPwd}"
-                    sh "docker push maniengg/nodeapp:${DOCKER_TAG}"
+                    sh "sudo docker login -u maniengg -p ${dockerHubPwd}"
+                    sh "sudo docker push maniengg/nodeapp:${DOCKER_TAG}"
                 }
             }
         }
